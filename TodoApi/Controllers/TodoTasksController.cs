@@ -20,8 +20,8 @@ namespace TodoApi.Controllers {
 
         [HttpGet]
         public async Task<ActionResult<List<TodoTask>>> GetAll() {
-            await _context.TodoTasks.ToListAsync();
-            return StatusCode(200);
+            var tasks = await _context.TodoTasks.ToListAsync();
+            return Ok(tasks);
         }   
 
         [HttpPost]

@@ -56,3 +56,4 @@ Planned future features and improvements:
 - Created task model
 - Created database context
 - Created controller 
+- Implemented frontend setup
