@@ -57,3 +57,4 @@ Planned future features and improvements:
 - Created database context
 - Created controller 
 - Implemented frontend setup
+- Created basic frontend with styling
