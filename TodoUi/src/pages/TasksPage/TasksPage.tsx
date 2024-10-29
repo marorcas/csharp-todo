@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { TaskResponse } from "../../services/task-services";
 import styles from "./TasksPage.module.scss";
+import TaskCard from "../../components/TaskCard/TaskCard";
 
 interface TasksPageProps {
   tasks: TaskResponse[];

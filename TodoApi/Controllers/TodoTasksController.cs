@@ -22,13 +22,38 @@ namespace TodoApi.Controllers {
         public async Task<ActionResult<List<TodoTask>>> GetAll() {
             var tasks = await _context.TodoTasks.ToListAsync();
             return Ok(tasks);
-        }   
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TodoTask>> GetById(long id) {
+            var task = await _context.TodoTasks.FindAsync(id);
+            if (task == null) return NotFound();
+
+            return Ok(task);
+        }
 
         [HttpPost]
         public async Task<ActionResult<TodoTask>> Create(TodoTask task) {
             _context.TodoTasks.Add(task);
             await _context.SaveChangesAsync();
             return StatusCode(201, task);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateTodoTask data) {
+            var task = await _context.TodoTasks.FindAsync(id);
+            if (task == null) return NotFound();
+
+            if (data.Completed.HasValue) {
+                task.Completed = data.Completed.Value;
+            }
+
+            if (data.Priority.HasValue) {
+                task.Priority = data.Priority.Value;
+            }
+
+            var newTask = await _context.SaveChangesAsync();
+            return Ok(newTask);
         }
 
         [HttpDelete("{id}")]

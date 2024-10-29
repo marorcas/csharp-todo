@@ -50,7 +50,7 @@ Planned future features and improvements:
 
 ## Changelog
 
-### 9/10/2024
+### 29/10/2024
 
 - Implemented backend setup
 - Created task model
@@ -58,3 +58,8 @@ Planned future features and improvements:
 - Created controller 
 - Implemented frontend setup
 - Created basic frontend with styling
+
+### 30/10/
+
+- Created model for update task
+- Implemented functions to update a task and to fetch a task by id in controller 

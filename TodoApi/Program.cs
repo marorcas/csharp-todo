@@ -3,6 +3,17 @@ using TodoApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS services
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddDbContext<TodoContext>(options =>
     options.UseMySql("Server=localhost;Database=TodoDb;User=root;Password=MyPass;",
@@ -29,8 +40,13 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
 }
 
+// Add CORS middleware before routing
 app.UseHttpsRedirection();
 app.UseRouting();
+
+// Use the CORS policy
+app.UseCors("AllowAllOrigins");
+
 app.UseAuthorization();
 app.MapControllers();
 

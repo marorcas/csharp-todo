@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { TaskResponse } from "../../services/task-services";
 import { TasksContext } from "../../contexts/TasksContextProvider/TasksContextProvider";
 import { TabSelectionContext } from "../../contexts/TabSelectionContextProvider/TabSelectionContextProvider";
+import HighlighterIcon from "./HighlighterIcon";
+import DeleteIcon from "./DeleteIcon";
 
 interface TaskCardProps {
     task: TaskResponse;
@@ -103,13 +105,19 @@ const TaskCard = ({ task }: TaskCardProps) => {
                 <h2 className={taskClassNames}>{task.name}</h2>
             </Link>
 
-            {/* <button className={styles.HighlighterContainer} onClick={togglePriority}>
+            <button 
+                className={styles.HighlighterContainer} 
+                // onClick={togglePriority}
+            >
                 <HighlighterIcon />
             </button>
 
-            <button className={styles.DeleteContainer} onClick={() => onDelete(task._id)}>
+            <button 
+                className={styles.DeleteContainer} 
+                // onClick={() => onDelete(task.id)}
+            >
                 <DeleteIcon />
-            </button> */}
+            </button>
         </article>
     )
 }
