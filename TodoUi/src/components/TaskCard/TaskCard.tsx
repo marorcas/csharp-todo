@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./TaskCard.module.scss";
 import { useContext, useState } from "react";
-import { getAllTasks, TaskResponse, updateTaskById, UpdateTaskRequest } from "../../services/task-services";
+import { deleteTaskById, getAllTasks, TaskResponse, updateTaskById, UpdateTaskRequest } from "../../services/task-services";
 import { TasksContext } from "../../contexts/TasksContextProvider/TasksContextProvider";
 import HighlighterIcon from "./HighlighterIcon";
 import DeleteIcon from "./DeleteIcon";
@@ -76,23 +76,23 @@ const TaskCard = ({ task }: TaskCardProps) => {
         .filter(Boolean)
         .join(' ');
 
-    // const onDelete = async (id) => {
-    //     const confirmed = confirm("Are you sure you want to delete this task?");
-    //     if (!confirmed) {
-    //         return;
-    //     }
+    const onDelete = async (id: number) => {
+        const confirmed = confirm("Are you sure you want to delete this task?");
+        if (!confirmed) {
+            return;
+        }
     
-    //     const isDeleted = await deleteTaskById(id)
-    //         .catch((e) => {
-    //             console.log(e)
-    //             return false;
-    //         });
+        const isDeleted = await deleteTaskById(id)
+            .catch((e) => {
+                console.log(e)
+                return false;
+            });
     
-    //     if (isDeleted) {
-    //         const updatedTasks = tasks.filter(task => task._id !== id);
-    //         setTasks(updatedTasks);
-    //     }
-    // }
+        if (isDeleted) {
+            const updatedTasks = tasks.filter(task => task.id !== id);
+            setTasks(updatedTasks);
+        }
+    }
 
     return(
         <article className={styles.TaskCard}>
@@ -108,8 +108,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
             <Link 
                 className={styles.TaskInfo}
                 key={task.id}
-                // to={`tasks/${task._id}/edit`}
-                to={'/'}
+                to={`/${task.id}/edit`}
             >
                 <h2 className={taskClassNames}>{task.name}</h2>
             </Link>
@@ -123,7 +122,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
             <button 
                 className={styles.DeleteContainer} 
-                // onClick={() => onDelete(task.id)}
+                onClick={() => onDelete(task.id)}
             >
                 <DeleteIcon />
             </button>

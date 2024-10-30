@@ -67,3 +67,4 @@ Planned future features and improvements:
 - Added completed tab to frontend 
 - Added priority tab to frontend
 - Created form to create a new task 
+- Created form to update a task 

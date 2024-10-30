@@ -44,6 +44,10 @@ namespace TodoApi.Controllers {
             var task = await _context.TodoTasks.FindAsync(id);
             if (task == null) return NotFound();
 
+            if (!string.IsNullOrWhiteSpace(data.Name)) {
+                task.Name = data.Name;
+            }
+
             if (data.Completed.HasValue) {
                 task.Completed = data.Completed.Value;
             }

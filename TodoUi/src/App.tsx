@@ -4,6 +4,7 @@ import TasksPageContainer from './containers/TasksPageContainer/TasksPageContain
 import TasksContextProvider from './contexts/TasksContextProvider/TasksContextProvider'
 import TabSelectionContextProvider from './contexts/TabSelectionContextProvider/TabSelectionContextProvider'
 import CreateTaskPage from './pages/CreateTaskPage/CreateTaskPage'
+import EditTaskPage from './pages/EditTaskPage/EditTaskPage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Routes>
               <Route path="/" element={<TasksPageContainer/>} />
               <Route path="/new" element={<CreateTaskPage/>} />
+              <Route path="/:id/edit" element={<EditTaskPage/>} />
             </Routes>
           </BrowserRouter>
         </TasksContextProvider>

@@ -10,9 +10,24 @@ export interface TaskResponse {
 }
 
 export interface UpdateTaskRequest {
-    // name?: string;
+    name?: string;
     completed?: boolean;
     priority?: boolean;
+}
+
+export const createTask = async (data: TaskFormData) => {
+    const response = await fetch(apiBaseUrl, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response) {
+        throw new Error('Failed to post');
+    }
+
+    return await response.json();
 }
 
 export const getAllTasks = async () => {
@@ -30,19 +45,16 @@ export const getAllTasks = async () => {
     return data as TaskResponse[];
 }
 
-export const createTask = async (data: TaskFormData) => {
-    const response = await fetch(apiBaseUrl, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
+export const getTaskById = async (id: number) => {
+    const response = await fetch(`${apiBaseUrl}/${id}`);
+    if (!response.ok) {
+        if (response.status === 404) {
+            throw new Error(await response.text());
         }
-    });
-    if (!response) {
-        throw new Error('Failed to post');
+        throw new Error('Something went wrong');
     }
 
-    return await response.json();
+    return (await response.json()) as TaskResponse;
 }
 
 export const updateTaskById = async (id: number, data: UpdateTaskRequest ) => {
