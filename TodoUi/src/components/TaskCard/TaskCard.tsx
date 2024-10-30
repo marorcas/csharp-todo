@@ -68,14 +68,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
         console.log(task);
     }
 
-    const taskClassNames = [
-        styles.Task,
-        completed && styles.Completed,
-        priority && styles.Priority
-      ]
-        .filter(Boolean)
-        .join(' ');
-
     const onDelete = async (id: number) => {
         const confirmed = confirm("Are you sure you want to delete this task?");
         if (!confirmed) {
@@ -93,6 +85,14 @@ const TaskCard = ({ task }: TaskCardProps) => {
             setTasks(updatedTasks);
         }
     }
+
+    const taskClassNames = [
+        styles.Task,
+        completed && styles.Completed,
+        priority && styles.Priority
+      ]
+        .filter(Boolean)
+        .join(' ');
 
     return(
         <article className={styles.TaskCard}>
