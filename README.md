@@ -68,3 +68,4 @@ Planned future features and improvements:
 - Added priority tab to frontend
 - Created form to create a new task 
 - Created form to update a task 
+- Set up xUnit testing environment
