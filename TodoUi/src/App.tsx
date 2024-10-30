@@ -3,6 +3,7 @@ import './App.css'
 import TasksPageContainer from './containers/TasksPageContainer/TasksPageContainer'
 import TasksContextProvider from './contexts/TasksContextProvider/TasksContextProvider'
 import TabSelectionContextProvider from './contexts/TabSelectionContextProvider/TabSelectionContextProvider'
+import CreateTaskPage from './pages/CreateTaskPage/CreateTaskPage'
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <TasksContextProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<TasksPageContainer />} />
+              <Route path="/" element={<TasksPageContainer/>} />
+              <Route path="/new" element={<CreateTaskPage/>} />
             </Routes>
           </BrowserRouter>
         </TasksContextProvider>

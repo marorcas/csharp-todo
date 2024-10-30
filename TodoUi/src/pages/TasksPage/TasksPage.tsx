@@ -15,7 +15,7 @@ const TasksPage = ({ tasks }: TasksPageProps) => {
       <h1>My To-Do List</h1>
 
       <div className={styles.Links}>
-        <Link to="/tasks/new">Create task</Link>
+        <Link to="/new">Create task</Link>
       </div>
 
       <div className={styles.FilterTabs}>

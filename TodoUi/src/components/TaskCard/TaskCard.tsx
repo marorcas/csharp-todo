@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./TaskCard.module.scss";
 import { useContext, useState } from "react";
-import { getAllTasks, TaskResponse, updateTaskById } from "../../services/task-services";
+import { getAllTasks, TaskResponse, updateTaskById, UpdateTaskRequest } from "../../services/task-services";
 import { TasksContext } from "../../contexts/TasksContextProvider/TasksContextProvider";
 import HighlighterIcon from "./HighlighterIcon";
 import DeleteIcon from "./DeleteIcon";
@@ -24,7 +24,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
         const taskCompleted = !completed;
         setCompleted(taskCompleted);
 
-        await updateTaskById(task.id, { completed: taskCompleted });
+        const updateCompleted: UpdateTaskRequest = {
+            completed: taskCompleted,
+            priority: undefined,
+        }
+
+        await updateTaskById(task.id, updateCompleted);
 
         task.completed = taskCompleted;
 
@@ -51,7 +56,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
         const taskPriority = !priority;
         setPriority(taskPriority);
 
-        await updateTaskById(task.id, { priority: taskPriority });
+        const updatePriority: UpdateTaskRequest = {
+            completed: undefined,
+            priority: taskPriority,
+        }
+
+        await updateTaskById(task.id, updatePriority);
 
         task.priority = taskPriority;
 

@@ -59,10 +59,11 @@ Planned future features and improvements:
 - Implemented frontend setup
 - Created basic frontend with styling
 
-### 30/10/
+### 30/10/2024
 
 - Created model for update task
 - Implemented functions to update a task and to fetch a task by id in controller 
 - Created function to update task by id on frontend services
 - Added completed tab to frontend 
 - Added priority tab to frontend
+- Created form to create a new task 

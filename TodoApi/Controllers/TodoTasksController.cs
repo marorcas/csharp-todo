@@ -52,8 +52,8 @@ namespace TodoApi.Controllers {
                 task.Priority = data.Priority.Value;
             }
 
-            var newTask = await _context.SaveChangesAsync();
-            return Ok(newTask);
+            await _context.SaveChangesAsync();
+            return Ok(task);
         }
 
         [HttpDelete("{id}")]

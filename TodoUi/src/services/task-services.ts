@@ -1,4 +1,6 @@
-const apiBaseUrl = " http://localhost:5129/api/todotasks";
+import { TaskFormData } from "../components/TaskForm/schema";
+
+const apiBaseUrl = "http://localhost:5129/api/todotasks";
 
 export interface TaskResponse {
     id: number;
@@ -28,6 +30,21 @@ export const getAllTasks = async () => {
     return data as TaskResponse[];
 }
 
+export const createTask = async (data: TaskFormData) => {
+    const response = await fetch(apiBaseUrl, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response) {
+        throw new Error('Failed to post');
+    }
+
+    return await response.json();
+}
+
 export const updateTaskById = async (id: number, data: UpdateTaskRequest ) => {
     const response = await fetch(`${apiBaseUrl}/${id}`, {
         method: 'PATCH',
@@ -42,4 +59,15 @@ export const updateTaskById = async (id: number, data: UpdateTaskRequest ) => {
     }
 
     return (await response.json()) as TaskResponse;
+}
+
+export const deleteTaskById = async (id: number) => {
+    const response = await fetch(`${apiBaseUrl}/${id}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) {
+        throw new Error('Failed to delete');
+    }
+    
+    return true;
 }
