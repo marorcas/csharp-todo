@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { TaskResponse } from "../../services/task-services";
 import styles from "./TasksPage.module.scss";
 import TaskCard from "../../components/TaskCard/TaskCard";
+import CompletedTab from "../../components/CompletedTab/CompletedTab";
 
 interface TasksPageProps {
   tasks: TaskResponse[];
@@ -17,6 +18,7 @@ const TasksPage = ({ tasks }: TasksPageProps) => {
       </div>
 
       <div className={styles.FilterTabs}>
+        <CompletedTab/>
         {/* <CompletedButton />
 
         <PriorityButton /> */}

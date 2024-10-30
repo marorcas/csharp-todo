@@ -63,3 +63,5 @@ Planned future features and improvements:
 
 - Created model for update task
 - Implemented functions to update a task and to fetch a task by id in controller 
+- Created function to update task by id on frontend services
+- Added completed tab to frontend 

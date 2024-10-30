@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./TaskCard.module.scss";
 import { useContext, useState } from "react";
-import { TaskResponse } from "../../services/task-services";
+import { getAllTasks, TaskResponse, updateTaskById } from "../../services/task-services";
 import { TasksContext } from "../../contexts/TasksContextProvider/TasksContextProvider";
-import { TabSelectionContext } from "../../contexts/TabSelectionContextProvider/TabSelectionContextProvider";
 import HighlighterIcon from "./HighlighterIcon";
 import DeleteIcon from "./DeleteIcon";
 
@@ -16,48 +15,48 @@ const TaskCard = ({ task }: TaskCardProps) => {
     if (tasksContext === undefined) {
         throw new Error('Something went wrong');
     }
-    // const { tasks, setTasks } = tasksContext;
+    const { tasks, setTasks } = tasksContext;
     
     const [completed, setCompleted] = useState<boolean>(task.completed);
     const [priority, setPriority] = useState<boolean>(task.priority);
     
-    // const toggleStatus = async () => {
-    //     const taskCompleted = !completed;
-    //     setCompleted(taskCompleted);
+    const toggleCompleted = async () => {
+        const taskCompleted = !completed;
+        setCompleted(taskCompleted);
 
-    //     await markTaskStatus(task._id, taskStatus);
+        await updateTaskById(task.id, { completed: taskCompleted });
 
-    //     task.status = taskStatus;
+        task.completed = taskCompleted;
 
-    //     console.log(task);
+        console.log(task);
 
-    //     if (taskStatus) {
-    //         getAllTasks()
-    //             .then((data) => {
-    //                 const updatedData = data.filter((task) => !task.status);
-    //                 setTasks(updatedData);
-    //             })
-    //             .catch((e) => console.warn(e));
-    //     } else {
-    //         getAllTasks()
-    //             .then((data) => {
-    //                 const updatedData = data.filter((task) => task.status);
-    //                 setTasks(updatedData);
-    //             })
-    //             .catch((e) => console.warn(e));
-    //     }
-    // }
+        if (taskCompleted) {
+            getAllTasks()
+                .then((data) => {
+                    const updatedData = data.filter((task) => !task.completed);
+                    setTasks(updatedData);
+                })
+                .catch((e) => console.warn(e));
+        } else {
+            getAllTasks()
+                .then((data) => {
+                    const updatedData = data.filter((task) => task.completed);
+                    setTasks(updatedData);
+                })
+                .catch((e) => console.warn(e));
+        }
+    }
 
-    // const togglePriority = async () => {
-    //     const taskPriority = !priority;
-    //     setPriority(taskPriority);
+    const togglePriority = async () => {
+        const taskPriority = !priority;
+        setPriority(taskPriority);
 
-    //     await markTaskPriority(task._id, taskPriority);
+        await updateTaskById(task.id, { priority: taskPriority });
 
-    //     task.priority = taskPriority;
+        task.priority = taskPriority;
 
-    //     console.log(task);
-    // }
+        console.log(task);
+    }
 
     const taskClassNames = [
         styles.Task,
@@ -92,7 +91,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     className={styles.Checkbox}
                     type="checkbox"
                     checked={completed}
-                    // onChange={toggleStatus}
+                    onChange={toggleCompleted}
                 />
             </div>
 
@@ -107,7 +106,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
             <button 
                 className={styles.HighlighterContainer} 
-                // onClick={togglePriority}
+                onClick={togglePriority}
             >
                 <HighlighterIcon />
             </button>
