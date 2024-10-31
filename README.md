@@ -69,3 +69,8 @@ Planned future features and improvements:
 - Created form to create a new task 
 - Created form to update a task 
 - Set up xUnit testing environment
+
+### 31/10/2024
+
+- Fixed testing environment 
+- Created basic tests for task entity
